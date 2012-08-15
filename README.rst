@@ -2,24 +2,26 @@
 GOOGLE
 ######
 
+=============================
 Coding: C++,  Java or Python.
 =============================
 
 You will be expected to write some code in at least some of your interviews. You will be expected to know a fair amount of detail about your favorite programming language. 
 
+==============================================================
 Big-O notations: "the run time characteristic of an algorithm"
 ==============================================================
 
-determine if an algorithm is appropriate for a problem of a given size
-f(n) = O(g(n)) < c * g(n)
+determine if an algorithm is appropriate for a problem of a given size:
+    f(n) = O(g(n)) < c * g(n)
 
-sum of two functions is dominated by the larger one:
+sum of two functions is dominated by the larger one
 
     O(f(n)) + O(g(n)) -> O(max(f(n),g(n))
     n^3 + n^2 = O(n^3)
 
-ignore constant multipliers
-O(c*f(n)) -> O(f(n))
+ignore constant multipliers:
+    O(c*f(n)) -> O(f(n))
 
 fastest -> slowest
 * 1		constant, no dependence on n: (adding or printing)
@@ -43,35 +45,97 @@ recursion
 http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=alg_index
 
 
+==========================
 Sorting: Know how to sort.
 ==========================
 
 Bubble Sort (BAD): O(n^2)
+=========================
+
 iterate through the entire array swapping the smaller neighbor with the larger
 repeat until no swaps are needed
 
+
 Selection Sort (BAD): O(n^2)
+============================
+
 repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
 easy to program but slow
 
-Insertion Sort (BAD): 
+
+Insertion Sort (BAD): O(n^2)
+============================
+
 start with a single element and incrementally insert the remaining elements into a new array
 
 You should know the details of at least one n*log(n) sorting algorithm, preferably two (say, quick sort and merge sort). Merge sort can be highly useful in situations where quick sort is impractical, so take a look at it.
 
 Hashtables: Arguably the single most important data structure known to mankind. You absolutely should know how they work. Be able to implement one using only arrays in your favorite language, in about the space of one interview.
 
-Trees: Know about trees; basic tree construction, traversal and manipulation algorithms. Familiarize yourself with binary trees, n-ary trees, and trie-trees. Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented. Understand tree traversal
 
-Algorithms: depth-first search breadth-first search, and know the difference between inorder, postorder and preorder.
+======
+Trees:
+======
 
-Graphs: Graphs are really important at Google. There are 3 basic ways to represent a graph in memory (objects and pointers, matrix, and adjacency list); familiarize yourself with each representation and its pros & cons. You should know the basic graph traversal algorithms: breadth-first search and depth-first search. Know their computational complexity, their tradeoffs, and how to implement them in real code. If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*.
+Know about trees; basic tree construction, traversal and manipulation algorithms.
 
-Other Data Structures: You should study up on as many other data structures and algorithms as possible. You should especially know about the most famous classes of NP-complete problems, such as traveling salesman and the knapsack problem, and be able to recognize them when an interviewer asks you them in disguise. Find out what NP-complete means.
+binary trees
+n-ary trees
+trie-trees.
 
-Mathematics: Some interviewers ask basic discrete math questions. This is more prevalent at Google than at other companies because counting problems, probability problems, and other Discrete Math 101 situations surrounds us. Spend some time before the interview refreshing your memory on (or teaching yourself) the essentials of combinatorics and probability. You should be familiar with n-choose-k problems and their ilk – the more the better.
+Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented.
 
-Operating Systems: Know about processes, threads and concurrency issues. Know about locks and mutexes and semaphores and monitors and how they work. Know about deadlock and livelock and how to avoid them. Know what resources a processes needs, and a thread needs, and how context switching works, and how it's initiated by the operating system and underlying hardware. Know a little about scheduling. The world is rapidly moving towards multi-core, so know the fundamentals of "modern" concurrency constructs.
+Understand tree traversal
+
+
+===========
+Algorithms:
+===========
+
+depth-first search
+
+breadth-first search
+and know the difference between inorder, postorder and preorder.
+
+
+=======
+Graphs:
+=======
+
+Graphs are really important at Google.
+
+There are 3 basic ways to represent a graph in memory (objects and pointers, matrix, and adjacency list); familiarize yourself with each representation and its pros & cons.
+
+You should know the basic graph traversal algorithms: breadth-first search and depth-first search. Know their computational complexity, their tradeoffs, and how to implement them in real code.
+
+If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*.
+
+
+======================
+Other Data Structures:
+======================
+
+You should study up on as many other data structures and algorithms as possible. You should especially know about the most famous classes of NP-complete problems, such as traveling salesman and the knapsack problem, and be able to recognize them when an interviewer asks you them in disguise. Find out what NP-complete means.
+
+
+============
+Mathematics:
+============
+
+Some interviewers ask basic discrete math questions. This is more prevalent at Google than at other companies because counting problems, probability problems, and other Discrete Math 101 situations surrounds us. Spend some time before the interview refreshing your memory on (or teaching yourself) the essentials of combinatorics and probability.
+
+You should be familiar with n-choose-k problems and their ilk – the more the better.
+
+
+==================
+Operating Systems:
+==================
+
+Know about processes, threads and concurrency issues. Know about locks and mutexes and semaphores and monitors and how they work.
+
+Know about deadlock and livelock and how to avoid them. Know what resources a processes needs, and a thread needs, and how context switching works, and how it's initiated by the operating system and underlying hardware. Know a little about scheduling.
+
+The world is rapidly moving towards multi-core, so know the fundamentals of "modern" concurrency constructs.
 
 For information on System Design:
 http://research.google.com/pubs/DistributedSystemsandParallelComputing.html
