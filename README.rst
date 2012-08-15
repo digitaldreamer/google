@@ -24,6 +24,7 @@ ignore constant multipliers:
     O(c*f(n)) -> O(f(n))
 
 fastest -> slowest
+
 * 1		constant, no dependence on n: (adding or printing)
 * log(n)		logarithmic, grow slowly: (binary search)
 * n		linear, look at each item once: (getting biggest item, averaging)
