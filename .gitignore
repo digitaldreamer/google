@@ -1,0 +1,14 @@
+DS_Store
+*.o
+*.pyc
+*.log
+*.psd
+*.fla
+*.swp
+*.zip
+*.tgz
+*.tar.gz
+*~
+*#
+envs/
+local_settings.py
