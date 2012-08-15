@@ -3,7 +3,8 @@ def insertion_sort(element):
     """
     O(n^2)
 
-    start with a single element and incrementally insert the remaining elements into an array keeping the elements sorted in the inserted section
+    start with a single element and incrementally insert the remaining elements into an array and sorting the elements sorted in the inserted section
+    easy to program but slow
     """
     length = len(element)
 
@@ -21,6 +22,7 @@ def insertion_sort(element):
         print element
 
     return element
+
 
 if __name__ == '__main__':
     sorts = insertion_sort(list('INSERTIONSORT'))

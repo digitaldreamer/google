@@ -28,5 +28,6 @@ def selection_sort(element):
 
     return element
 
+
 if __name__ == '__main__':
     sorts = selection_sort(list('SELECTIONSORT'))
