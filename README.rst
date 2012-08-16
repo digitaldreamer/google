@@ -33,6 +33,54 @@ fastest -> slowest
 * 2^n		exponential, look at all subsets, quickly becomes useless
 * n!		factorial, generate all permutations, almost useless
 
+logarithm
+=========
+
+logarithms are an inverse exponential function:
+b^x = y => x = log b (y)
+
+* exponential functions grow fast therefor logarithms grow slowly
+* show up when things are repeatedly halved or doubled
+* O(log n) algorithms are fast enough to work on data sets of almost any size
+
+* binary logarithm (base 2): lg x
+* natrual logarithm (base e): ln x
+* comon logarithm (base 10): log x
+* the base has no impact on growth rate
+
+logarithms cut any function down to size: the growth rate of the log of any polynomial is O(lg n) because:
+log a (n^b) = b * log a (n)
+
+log a (xy) = log a (x) + log a (y)
+
+convert one base to another:
+log a (b) = log c (b) / log c (a)
+
+binary tree
+-----------
+
+* trees where nodes can have at most 2 children
+* the number of leaves doubles every time we increase the height by one
+* leaves = 2^height: or height = log 2 (n)
+* short trees can have many leaves
+
+bits
+----
+
+* there are two bit patterns (1 or 0) of length 1
+* we need 2^lenght = numbers, or lenght = log 2 (numbers)
+
+fast exponentiation
+-------------------
+
+compute a^n::
+
+    notice: n = n/2 + n/2
+    a^n = (a^(n/2))^2 if n is even
+    a^n = a * (a^(n/2))^2 if n is odd
+    we can halve the amount of multiplications O(lg n)
+
+
 
 arrays
 linked lists
