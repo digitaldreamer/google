@@ -59,7 +59,7 @@ log a (b) = log c (b) / log c (a)
 binary tree
 -----------
 
-binary-tree_
+`Binary Trees`_
 
 bits
 ----
@@ -231,7 +231,6 @@ Trees
 | Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented.
 | Understand tree traversal
 
-.. _binary-tree:
 
 Binary Trees
 ============
