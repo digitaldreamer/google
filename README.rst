@@ -36,8 +36,8 @@ fastest -> slowest
 logarithm
 =========
 
-|logarithms are an inverse exponential function:
-|b^x = y => x = log b (y)
+| logarithms are an inverse exponential function:
+| b^x = y => x = log b (y)
 
 * exponential functions grow fast therefor logarithms grow slowly
 * show up when things are repeatedly halved or doubled
@@ -48,8 +48,8 @@ logarithm
 * comon logarithm (base 10): log x
 * the base has no impact on growth rate
 
-|logarithms cut any function down to size: the growth rate of the log of any polynomial is O(lg n) because:
-|log a (n^b) = b * log a (n)
+| logarithms cut any function down to size: the growth rate of the log of any polynomial is O(lg n) because:
+| log a (n^b) = b * log a (n)
 
 log a (xy) = log a (x) + log a (y)
 
@@ -90,15 +90,15 @@ Sorting: Know how to sort.
 Bubble Sort (BAD): O(n^2)
 =========================
 
-|iterate through the entire array swapping the smaller neighbor with the larger
-|repeat until no swaps are needed
+| iterate through the entire array swapping the smaller neighbor with the larger
+| repeat until no swaps are needed
 
 
 Selection Sort (BAD): O(n^2)
 ============================
 
-|repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
-|easy to program but slow
+| repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
+| easy to program but slow
 
 
 Insertion Sort (BAD): O(n^2)
@@ -165,9 +165,9 @@ Containers
 
 storage and retrieval of data independant of content
 
-|can be implamented with either arrays or linked lists,
-|the key is whether the upper bound on the size of container is known in advance,
-|in which case an array would be more efficient.
+| can be implamented with either arrays or linked lists,
+| the key is whether the upper bound on the size of container is known in advance,
+| in which case an array would be more efficient.
 
 
 Stacks
@@ -192,8 +192,8 @@ Queues
 Dictionaries
 ============
 
-|a set of n records, each identified by one or more key fields
-|permits access to data items by content: stick and item in a dictionary so you can find it when needed
+| a set of n records, each identified by one or more key fields
+| permits access to data items by content: stick and item in a dictionary so you can find it when needed
 
 * can be built with unsorted/unsorted (double) linked lists, sorted/unsorted arrays, hash tables, binary tree, B-tree, skip lists
 
