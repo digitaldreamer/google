@@ -59,10 +59,7 @@ log a (b) = log c (b) / log c (a)
 binary tree
 -----------
 
-* trees where nodes can have at most 2 children
-* the number of leaves doubles every time we increase the height by one
-* leaves = 2^height: or height = log 2 (n)
-* short trees can have many leaves
+binary-tree_
 
 bits
 ----
@@ -226,22 +223,28 @@ successor   O(n)           O(1)         O(n)        O(n)               O(1)     
 Heaps
 =====
 
-======
-Trees:
-======
+=====
+Trees
+=====
 
-Know about trees; basic tree construction, traversal and manipulation algorithms.
+| Know about trees; basic tree construction, traversal and manipulation algorithms.
+| Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented.
+| Understand tree traversal
+
+.. _binary-tree:
 
 Binary Trees
 ============
 
-binary trees
+* trees where nodes can have at most 2 children
+* the number of leaves doubles every time we increase the height by one
+* leaves = 2^height: or height = log 2 (n)
+* short trees can have many leaves
+
+
 n-ary trees
-trie-trees.
+trie-trees
 
-Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented.
-
-Understand tree traversal
 
 
 ===========
@@ -249,7 +252,6 @@ Algorithms:
 ===========
 
 depth-first search
-
 breadth-first search
 and know the difference between inorder, postorder and preorder.
 
