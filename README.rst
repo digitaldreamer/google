@@ -17,8 +17,8 @@ determine if an algorithm is appropriate for a problem of a given size:
 
 sum of two functions is dominated by the larger one
 
-    O(f(n)) + O(g(n)) -> O(max(f(n),g(n))
-    n^3 + n^2 = O(n^3)
+|    O(f(n)) + O(g(n)) -> O(max(f(n),g(n))
+|    n^3 + n^2 = O(n^3)
 
 ignore constant multipliers:
     O(c*f(n)) -> O(f(n))
@@ -36,8 +36,8 @@ fastest -> slowest
 logarithm
 =========
 
-logarithms are an inverse exponential function:
-b^x = y => x = log b (y)
+|logarithms are an inverse exponential function:
+|b^x = y => x = log b (y)
 
 * exponential functions grow fast therefor logarithms grow slowly
 * show up when things are repeatedly halved or doubled
@@ -48,8 +48,8 @@ b^x = y => x = log b (y)
 * comon logarithm (base 10): log x
 * the base has no impact on growth rate
 
-logarithms cut any function down to size: the growth rate of the log of any polynomial is O(lg n) because:
-log a (n^b) = b * log a (n)
+|logarithms cut any function down to size: the growth rate of the log of any polynomial is O(lg n) because:
+|log a (n^b) = b * log a (n)
 
 log a (xy) = log a (x) + log a (y)
 
@@ -80,17 +80,6 @@ compute a^n::
     a^n = a * (a^(n/2))^2 if n is odd
     we can halve the amount of multiplications O(lg n)
 
-
-
-arrays
-linked lists
-dictionaries
-heaps
-binary trees
-linked lists
-
-recursion
-
 http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=alg_index
 
 
@@ -101,15 +90,15 @@ Sorting: Know how to sort.
 Bubble Sort (BAD): O(n^2)
 =========================
 
-iterate through the entire array swapping the smaller neighbor with the larger
-repeat until no swaps are needed
+|iterate through the entire array swapping the smaller neighbor with the larger
+|repeat until no swaps are needed
 
 
 Selection Sort (BAD): O(n^2)
 ============================
 
-repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
-easy to program but slow
+|repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
+|easy to program but slow
 
 
 Insertion Sort (BAD): O(n^2)
@@ -122,11 +111,129 @@ You should know the details of at least one n*log(n) sorting algorithm, preferab
 Hashtables: Arguably the single most important data structure known to mankind. You absolutely should know how they work. Be able to implement one using only arrays in your favorite language, in about the space of one interview.
 
 
+===============
+Data Structures
+===============
+
+2 types of data structures
+
+* contiguously allocated
+    * single slabs of memory
+    * arrays, matrices, heaps, hash tables
+
+* linked data
+    * distinct chuncks of memory bound together by pointers
+    * lists, trees, graphs
+
+
+Arrays
+======
+
+contigously-allocated data structure
+
+Good
+
+    * constant time access given the index: can access the element directly for a given index
+    * space efficiency: no need for meta data like pointer links
+    * memory locality: the data is next to each other in memory
+
+Bad
+
+    * hard to adjust their size: can waste space allocating too much memory to compensate
+    * if need to adjust the size of the array it's good to double or halve the size on each step
+
+
+Linked Lists
+============
+
+linked data structure
+
+Good
+
+    * overflow can never occure unless if totally out of memory
+    * easier and faster to insert/delete
+
+Bad
+
+    * require extra space to hold the pointer
+    * cannot efficiently randomly access items
+    * harder to cache because the data lacks memory locality: might not be clustered together
+
+
+Containers
+==========
+
+storage and retrieval of data independant of content
+
+|can be implamented with either arrays or linked lists,
+|the key is whether the upper bound on the size of container is known in advance,
+|in which case an array would be more efficient.
+
+
+Stacks
+------
+
+* LIFO - last in first out
+* simple to implement
+* good for batch jobs or when order doesn't matter
+* push - insert item at the top of stack
+* pop - retrieve and remove item on top of stack
+
+
+Queues
+------
+
+* FIFO - first in first out
+* fair way to control waiting times: minimizes the maximum time spent waiting (the average time will be the same regardless of LIFO or FIFO)
+* harder to implemnent than stacks so typically used when order is important, otherwise use a stack
+* put - insert item at the back of queue
+* get - retrieve and remove item at the front of queue
+
+Dictionaries
+============
+
+|a set of n records, each identified by one or more key fields
+|permits access to data items by content: stick and item in a dictionary so you can find it when needed
+
+* can be built with unsorted/unsorted (double) linked lists, sorted/unsorted arrays, hash tables, binary tree, B-tree, skip lists
+
+operations
+
+* search(D, k): if exists, return a pointer to the element in dictionary (D) whose key value is the key (k)
+* insert(D, x): add data item (x) to the set in dictionary (D)
+* delete(D, x): remove the data item (x) from the dictionary (D)
+* max(D), min(D): retrieve the largest/smallest key from the dictionary (D) (priority queue)
+* predecessor(D, k), successor(D, k): retrieve the item from dictionary (D) whose key (k) is immediately before/after k in the sort order
+
+Costs
+
+=========== ============== ============ =========== ================== ========= ================
+operation   unsorted array sorted array unsorted ll double unsorted ll sorted ll double sorted ll
+=========== ============== ============ =========== ================== ========= ================
+search      O(n)           O(log n)     O(n)        O(n)               O(n)      O(n)
+insert      O(1)           O(n)         O(1)        O(1)               O(n)      O(n)
+delete      O(1)*          O(n)         O(n)        O(1)               O(n)      O(1)
+max         O(n)           O(1)         O(n)        O(n)               O(1)      O(1)
+min         O(n)           O(1)         O(n)        O(n)               O(1)      O(1)
+predecessor O(n)           O(1)         O(n)        O(n)               O(n)      O(1)
+successor   O(n)           O(1)         O(n)        O(n)               O(1)      O(1)
+=========== ============== ============ =========== ================== ========= ================
+
+\* to delete an item in unsorted array leaves a hole, you can move every element after the deltion up a level for O(n), or you can cheat and replace the hole with the last element for O(1)
+| can maintain a pointer to the end of a double ll
+
+
+Heaps
+=====
+
 ======
 Trees:
 ======
 
 Know about trees; basic tree construction, traversal and manipulation algorithms.
+
+Binary Trees
+============
 
 binary trees
 n-ary trees
