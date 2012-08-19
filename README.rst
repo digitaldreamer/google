@@ -112,6 +112,9 @@ Hashtables: Arguably the single most important data structure known to mankind. 
 Data Structures
 ===============
 
+| When dealing with large data sets only linear or near linear O(n log(n)) are likely to be fast enough.
+| Selecting the right data structure is often the key to getting the time complexity down to this point
+
 2 types of data structures
 
 * contiguously allocated
@@ -173,6 +176,9 @@ Stacks
 * LIFO - last in first out
 * simple to implement
 * good for batch jobs or when order doesn't matter
+
+functions
+
 * push - insert item at the top of stack
 * pop - retrieve and remove item on top of stack
 
@@ -183,8 +189,26 @@ Queues
 * FIFO - first in first out
 * fair way to control waiting times: minimizes the maximum time spent waiting (the average time will be the same regardless of LIFO or FIFO)
 * harder to implemnent than stacks so typically used when order is important, otherwise use a stack
+
+functions
+
 * put - insert item at the back of queue
 * get - retrieve and remove item at the front of queue
+
+
+Priority Queues
+---------------
+
+* allows inserting, retrieving, and deleting by weighted importance
+* new elements can be inserted at arbitrary intervals
+* better to insert in place rather than resort entire data set
+
+functions
+
+* insert - insert element into queue
+* min/max - retrieve min/max element in queue
+* delete_min / delete_max - delete min/max element in queue
+
 
 Dictionaries
 ============
@@ -220,6 +244,56 @@ successor   O(n)           O(1)         O(n)        O(n)               O(1)     
 | can maintain a pointer to the end of a double ll
 
 
+Hash Tables
+-----------
+
+* very effective way to maintain a dictionary, and often the best data structure to maintain a dictionary
+* exploit constant time lookup of an index in an array
+* a hash function mathematically maps keys to integers which is used to index the array
+* ideally the hash values will be uniformly distributed
+* the main idea of hashing is to represent a large object with a single number that can then be manipulated in constant time
+* optimizing hash table performance is surprisingly complicated for such a conceptually simple data structure
+
+collision detection
+    sometimes two unique values will have the same key
+    be prepared to handle this situation
+
+* chaining
+    - each index constains all values at that index (buckets)
+    - the easiest way to resolve collisions but devotes a considerable amount of memory to pointers
+* open addressing
+    - the hash table is maintained as an array of elements initialized to null
+    - on insertion check to see if position is empty; if so, insert it
+    - if not insert the item into the next open slot in the array (sequential probing)
+    - if the table isn't too full the contiguous runs should be short hence each element should be closet to its intended position
+    - searching for an element now requires us to go to the index and check if it's the one we want, if not keep checking the length of the run
+    - deletion in open addressing is tricky because we need to rearrange all elements in the run after the deleted element
+
+Can be helpful when looking for duplicates on large files (collision detection), or detecting if a file has changed or not
+
+| Worst-case bounds on hashing are terrible, but a proper hash function can confidently yield good behavior.
+| Hashing is a fundamental idea in randomized algorithms yielding linear expected-time algorithms for problems otherwise O(n log n) or O(n^2).
+
+
+Specialized Data Structures
+---------------------------
+
+String Data Structures
+    Character strings are usually arrays
+    suffix trees/arrays preprocess strings to make pattern matching faster
+
+Geometric Data Structures
+    usually a collection of data points and regions (polygons)
+    kd-trees organize points and regions by geometric location to support faster search
+
+Graph Data Structures
+    typically represented by adjancency matrices or adjancency lists (sometimes objects and pointers)
+    graph representation can have a substantial impact on operational time
+
+Set Data Structures
+    subsets of items are generally represented using a dictionary to support fast membership queries
+
+
 Heaps
 =====
 
@@ -230,6 +304,35 @@ Trees
 | Know about trees; basic tree construction, traversal and manipulation algorithms.
 | Be familiar with at least one type of balanced binary tree, whether it's a red/black tree, a splay tree or an AVL tree, and know how it's implemented.
 | Understand tree traversal
+| trees utilize recursion
+
+Pre-Order, In-Order and Post-Order
+==================================
+
+depth first search traversal methods
+
+Starting at the root of binary tree the order in which the nodes are visited define these traversal types.
+
+Basically there are 3 main steps. (1) Visting the current node, (2) Traverse the left node and (3) Traverse the right nodes.
+From Wikipedia,
+
+To traverse a non-empty binary tree in preorder, perform the following operations recursively at each node, starting with the root node:
+
+#. Visit the root.
+#. Traverse the left subtree.
+#. Traverse the right subtree.
+
+To traverse a non-empty binary tree in inorder (symmetric), perform the following operations recursively at each node:
+
+#. Traverse the left subtree.
+#. Visit the root.
+#. Traverse the right subtree.
+
+To traverse a non-empty binary tree in postorder, perform the following operations recursively at each node:
+
+#. Traverse the left subtree.
+#. Traverse the right subtree.
+#. Visit the root.
 
 
 Binary Trees
@@ -241,9 +344,28 @@ Binary Trees
 * short trees can have many leaves
 
 
+Binary Search Tree
+------------------
+
+* have fast access to two elements: the median elements above and below the node
+* built with linked lists with two pointers per node
+* for any node x, all nodes in left subtree of x have keys < x, and all nodes in right subtree of x have keys > x
+* all nodes have left and right pointer, parent pointer is optional
+* depends entirely on the insert order to be balanced
+
+operations
+
+* search: O(h) h = height
+* traversal: visit all nodes in tree
+* insertion: can only insert in the place after an unsuccessful search of item
+* deletion: more complex, need to re-link child-parent nodes across deleted element: if element had two nodes pick the smallest element in the right subtree to replace deleted node
+* min/max: left/right most node
+
+
+red-black trees
+splay trees
 n-ary trees
 trie-trees
-
 
 
 ===========
@@ -252,7 +374,6 @@ Algorithms:
 
 depth-first search
 breadth-first search
-and know the difference between inorder, postorder and preorder.
 
 
 =======

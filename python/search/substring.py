@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 Search for the substring in a string, and if exists return the index of the first match
+
+Can be implamented using the Rabin-Karp algorithm using Hashes
 """
 def substring(pattern, string):
     """
