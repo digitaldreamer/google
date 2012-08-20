@@ -84,28 +84,87 @@ http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=alg_index
 Sorting: Know how to sort.
 ==========================
 
-Bubble Sort (BAD): O(n^2)
-=========================
+* sorting is the basic building block that many algorithms are built around
+* most algorithms involve sorting
+* historically computers spend more cycles sorting than doing anything else
+* sorting is the most thoroughly studied problem in computer science
+* many problems become easy once the data is sorted
+    - searching: binary search reduces search times to O(log n); search preprocessing is arguably the most important application of sorting.
+    - closest pair: elements are next to each other
+    - uniqueness: special case closest pair
+    - frequency distribution: easy to count since identical items are lumped together
+    - selection: can get the kth larges item by looking at the kth position
+    - convex hulls: What is the polygon of smallest area that contains a given set of points? like a rubber band stretched over the points. Construct by inserting points from left to right.
+* O(n^2) will work only to around 1,000 ~ 10,000 data points, beyond that you'll need O(n log n)
+
+Bubble Sort: O(n^2)
+===================
 
 | iterate through the entire array swapping the smaller neighbor with the larger
 | repeat until no swaps are needed
 
 
-Selection Sort (BAD): O(n^2)
-============================
+Selection Sort: O(n^2)
+======================
 
 | repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
 | easy to program but slow
 
 
-Insertion Sort (BAD): O(n^2)
-============================
+Insertion Sort: O(n^2)
+======================
 
-start with a single element and incrementally insert the remaining elements into a new array
+start with a single element and incrementally insert the remaining elements into a new array that you keep sorted
 
-You should know the details of at least one n*log(n) sorting algorithm, preferably two (say, quick sort and merge sort). Merge sort can be highly useful in situations where quick sort is impractical, so take a look at it.
+Sorting by Incremental Insertion
+================================
 
-Hashtables: Arguably the single most important data structure known to mankind. You absolutely should know how they work. Be able to implement one using only arrays in your favorite language, in about the space of one interview.
+| incremental insertion builds up a complex structure of n items by building n-1 items then inserting the last item
+| insertion sort takes O(n^2), but it performs much better if the data is already sorted.
+| inserting into a balanced search tree takes O(log n) for a total of O(n log n)
+| useful in geometric algorithms
+
+
+Heap Sort: O(n log n)
+=====================
+
+`Heaps`_
+
+| use data structures to drive the logic
+| simply an implementation of selection sort using the right data structure (heap / priority queue)
+| speeds the operation from O(n^2) to O(n log n)
+
+::
+
+    SelectinoSort(A)
+        for i = 1 to n do
+            sort[i] = find-minimum from A
+            delete-minimum from a
+        return sort
+
+
+Merge Sort
+==========
+
+divide and conquer
+
+Quick Sort
+==========
+
+randomization
+
+Distribution Sort
+=================
+
+bucketing
+
+======
+Search
+======
+
+Depth-first Search
+
+Breadth-first Search
 
 
 ===============
@@ -165,7 +224,7 @@ Containers
 
 storage and retrieval of data independant of content
 
-| can be implamented with either arrays or linked lists,
+| can be implemented with either arrays or linked lists,
 | the key is whether the upper bound on the size of container is known in advance,
 | in which case an array would be more efficient.
 
@@ -247,6 +306,10 @@ successor   O(n)           O(1)         O(n)        O(n)               O(1)     
 Hash Tables
 -----------
 
+| Arguably the single most important data structure known to mankind.
+| You absolutely should know how they work.
+| Be able to implement one using only arrays in your favorite language, in about the space of one interview.
+
 * very effective way to maintain a dictionary, and often the best data structure to maintain a dictionary
 * exploit constant time lookup of an index in an array
 * a hash function mathematically maps keys to integers which is used to index the array
@@ -296,6 +359,57 @@ Set Data Structures
 
 Heaps
 =====
+
+* supports priority queue operations: insert and extract-min/max
+* heaps work by maintaining an order which is weaker than sorted order (more efficient)
+  but stronger than random order (min/max element can be identified)
+* the power of any hierarchically-structured organization is reflected
+  by a tree where each node and edge (x, y) implies that x supervises or dominates y
+* the root entry is at the top of the heap
+* a heap labeled tree is a binary tree where each node dominates the keys of its children
+    - min-heap: the root key is smaller than its children
+    - max-heap: the root key is bigger than its children
+
+
+Operations
+----------
+* insert
+* extract/delete min/max value
+
+
+Composition
+-----------
+
+Heaps are binary trees and can be constructed with pointers OR an array: arrays are generally better for heaps
+
+* in an array the parent is array[floor(n/2)], and its children are array[2*n] and array[2*n + 1]
+* the catch with the array is the gain in access efficiency is offset by having all missing nodes still take up space
+* lose flexibility: cannot store arbitrary topologies without wasting a lot of space,
+  cannot move subtrees around by chaning pointers
+* because of this cannot use arrays to represent binary search trees, but it works fine for heaps
+* cannot use a heap to search for an element: heaps are NOT binary search trees
+    - are only interested in the root: min/max value
+
+
+Construction
+------------
+
+* construct a heap by inserting a new element into the left-most open spot in the array (n + 1) position.
+    - ensures a balanced tree
+* if the new key is not dominated by its parent then swap the parent and child
+    - the relationship with the other child will be preserved because the dominance will be strengthened
+* recurse (bubble up) the new key up the tree to its proper position
+* each insert takes O(log n), so constructing a heap takes O(n log n) with n insertions
+
+
+Extact Dominant Element (min/max)
+---------------------------------
+
+* extracting the max/min is easy because it's the first element of the array, but leaves a hole
+* move the right-most element to replace the root
+* rebalance the tree by swapping with the most dominant child and bubbling down or heapify
+* bubble down takes O(lg n)
+
 
 =====
 Trees
@@ -366,15 +480,6 @@ red-black trees
 splay trees
 n-ary trees
 trie-trees
-
-
-===========
-Algorithms:
-===========
-
-depth-first search
-breadth-first search
-
 
 =======
 Graphs:
