@@ -5,6 +5,10 @@ merge sort using arrays
 sort by divide and conquere
 """
 def mergesort(arr):
+    """
+    keep splitting the array down to one element
+    then merge the arrays
+    """
     length = len(arr)
 
     # return the array if only 1 or 0 elements
@@ -20,11 +24,15 @@ def mergesort(arr):
 
 
 def _merge(left, right):
+    """
+    merge the arrays keeping them sorted
+    """
     ret = []
     i, j = 0, 0
     left_length = len(left)
     right_length = len(left)
 
+    # keep plucking the smallest element until the end of an array
     while i < left_length and j < right_length:
         if left[i] <= right[j]:
             ret.append(left[i])
@@ -33,6 +41,7 @@ def _merge(left, right):
             ret.append(right[j])
             j += 1
 
+    # we might have ended with elements left in one array, add them
     ret += left[i:]
     ret += right[j:]
 

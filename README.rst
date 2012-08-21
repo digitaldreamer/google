@@ -168,10 +168,12 @@ Quick Sort
 
 randomization
 
+
 Distribution Sort
 =================
 
 bucketing
+
 
 ======
 Search
