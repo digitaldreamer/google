@@ -136,17 +136,32 @@ Heap Sort: O(n log n)
 
 ::
 
-    SelectinoSort(A)
+    SelectionSort(A)
         for i = 1 to n do
             sort[i] = find-minimum from A
             delete-minimum from a
         return sort
 
 
-Merge Sort
-==========
+Merge Sort O(n log n)
+=====================
 
-divide and conquer
+| divide and conquer
+| recursive algorithms reduce large problems into smaller ones
+| runs great on linked-lists because doesn't rely on random access like heapsort and quicksort
+
+* split the data into two groups
+* sort the two groups recursively
+* interleave the two sorted lists to order the elements
+* disadvantage is it needs an auxilary buffer when sorting arrays
+
+::
+
+    The merge() method merges the two sorted sublists. The mergesort() method, which runs recursively, divides the unsorted lists into two sublists and sorts each sublist.
+
+    mergesort(A):
+        merge(mergesort(a[0, n/2]), mergesort(a[n/2] + 1, n))
+
 
 Quick Sort
 ==========
