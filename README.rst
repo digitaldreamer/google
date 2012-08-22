@@ -80,110 +80,6 @@ compute a^n::
 http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=alg_index
 
 
-==========================
-Sorting: Know how to sort.
-==========================
-
-* sorting is the basic building block that many algorithms are built around
-* most algorithms involve sorting
-* historically computers spend more cycles sorting than doing anything else
-* sorting is the most thoroughly studied problem in computer science
-* many problems become easy once the data is sorted
-    - searching: binary search reduces search times to O(log n); search preprocessing is arguably the most important application of sorting.
-    - closest pair: elements are next to each other
-    - uniqueness: special case closest pair
-    - frequency distribution: easy to count since identical items are lumped together
-    - selection: can get the kth larges item by looking at the kth position
-    - convex hulls: What is the polygon of smallest area that contains a given set of points? like a rubber band stretched over the points. Construct by inserting points from left to right.
-* O(n^2) will work only to around 1,000 ~ 10,000 data points, beyond that you'll need O(n log n)
-
-Bubble Sort: O(n^2)
-===================
-
-| iterate through the entire array swapping the smaller neighbor with the larger
-| repeat until no swaps are needed
-
-
-Selection Sort: O(n^2)
-======================
-
-| repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
-| easy to program but slow
-
-
-Insertion Sort: O(n^2)
-======================
-
-start with a single element and incrementally insert the remaining elements into a new array that you keep sorted
-
-Sorting by Incremental Insertion
-================================
-
-| incremental insertion builds up a complex structure of n items by building n-1 items then inserting the last item
-| insertion sort takes O(n^2), but it performs much better if the data is already sorted.
-| inserting into a balanced search tree takes O(log n) for a total of O(n log n)
-| useful in geometric algorithms
-
-
-Heap Sort: O(n log n)
-=====================
-
-`Heaps`_
-
-| use data structures to drive the logic
-| simply an implementation of selection sort using the right data structure (heap / priority queue)
-| speeds the operation from O(n^2) to O(n log n)
-
-::
-
-    SelectionSort(A)
-        for i = 1 to n do
-            sort[i] = find-minimum from A
-            delete-minimum from a
-        return sort
-
-
-Merge Sort O(n log n)
-=====================
-
-| divide and conquer
-| recursive algorithms reduce large problems into smaller ones
-| runs great on linked-lists because doesn't rely on random access like heapsort and quicksort
-
-* split the data into two groups
-* sort the two groups recursively
-* interleave the two sorted lists to order the elements
-* disadvantage is it needs an auxilary buffer when sorting arrays
-
-::
-
-    The merge() method merges the two sorted sublists. The mergesort() method, which runs recursively, divides the unsorted lists into two sublists and sorts each sublist.
-
-    mergesort(A):
-        merge(mergesort(a[0, n/2]), mergesort(a[n/2] + 1, n))
-
-
-Quick Sort
-==========
-
-randomization
-
-
-Distribution Sort
-=================
-
-bucketing
-
-
-======
-Search
-======
-
-Depth-first Search
-
-Breadth-first Search
-
-
 ===============
 Data Structures
 ===============
@@ -498,6 +394,7 @@ splay trees
 n-ary trees
 trie-trees
 
+
 =======
 Graphs:
 =======
@@ -511,11 +408,161 @@ You should know the basic graph traversal algorithms: breadth-first search and d
 If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*.
 
 
-======================
-Other Data Structures:
-======================
+=====================
+Other Data Structures
+=====================
 
 You should study up on as many other data structures and algorithms as possible. You should especially know about the most famous classes of NP-complete problems, such as traveling salesman and the knapsack problem, and be able to recognize them when an interviewer asks you them in disguise. Find out what NP-complete means.
+
+
+==========================
+Sorting: Know how to sort.
+==========================
+
+* sorting is the basic building block that many algorithms are built around
+* most algorithms involve sorting
+* historically computers spend more cycles sorting than doing anything else
+* sorting is the most thoroughly studied problem in computer science
+* many problems become easy once the data is sorted
+    - searching: binary search reduces search times to O(log n); search preprocessing is arguably the most important application of sorting.
+    - closest pair: elements are next to each other
+    - uniqueness: special case closest pair
+    - frequency distribution: easy to count since identical items are lumped together
+    - selection: can get the kth larges item by looking at the kth position
+    - convex hulls: What is the polygon of smallest area that contains a given set of points? like a rubber band stretched over the points. Construct by inserting points from left to right.
+* O(n^2) will work only to around 1,000 ~ 10,000 data points, beyond that you'll need O(n log n)
+
+
+Bubble Sort: O(n^2)
+===================
+
+| iterate through the entire array swapping the smaller neighbor with the larger
+| repeat until no swaps are needed
+
+
+Selection Sort: O(n^2)
+======================
+
+| repeatedly identify the smallest remaining unsorted element and put it at the end of the sorted portion of the array
+| easy to program but slow
+
+
+Insertion Sort: O(n^2)
+======================
+
+start with a single element and incrementally insert the remaining elements into a new array that you keep sorted
+
+
+Sorting by Incremental Insertion
+================================
+
+| incremental insertion builds up a complex structure of n items by building n-1 items then inserting the last item
+| insertion sort takes O(n^2), but it performs much better if the data is already sorted.
+| inserting into a balanced search tree takes O(log n) for a total of O(n log n)
+| useful in geometric algorithms
+
+
+Heap Sort: O(n log n)
+=====================
+
+`Heaps`_
+
+| use data structures to drive the logic
+| simply an implementation of selection sort using the right data structure (heap / priority queue)
+| speeds the operation from O(n^2) to O(n log n)
+
+::
+
+    SelectionSort(A)
+        for i = 1 to n do
+            sort[i] = find-minimum from A
+            delete-minimum from a
+        return sort
+
+
+Merge Sort O(n log n)
+=====================
+
+| divide and conquer
+| recursive algorithms reduce large problems into smaller ones
+| runs great on linked-lists because doesn't rely on random access like heapsort and quicksort
+
+* split the data into two groups
+* sort the two groups recursively
+* interleave the two sorted lists to order the elements
+* disadvantage is it needs an auxilary buffer when sorting arrays
+
+::
+
+    The merge() method merges the two sorted sublists.
+    The mergesort() method, which runs recursively,
+    divides the unsorted lists into two sublists and sorts each sublist.
+
+    mergesort(A):
+        merge(mergesort(a[0, n/2]), mergesort(a[n/2] + 1, n))
+
+
+Quick Sort 0(n log n) *on average
+=================================
+
+sort by randomization
+
+::
+
+    * The performance depends on picking pivots that bisect the array in the middle.
+    Worst case of always picking either smallest or largest element gives us selection sort and O(n^2).
+
+    Generally speaking quick sort runs 2-3 times FASTER than merge sort and heap sort primarily because
+    the operations on the inner-most loop are simpler. Good thing it lives up to its name!
+
+
+* select a random pivot item p from n items
+* separate the rest of the items into two groups
+    - low pile: contains items before p in sorted order
+    - high pile: contains items afer p in sorted order
+* combined groups = low + equal + hight
+
+How does this work?
+
+#. the pivot element ends up in the correct position in the array
+#. after partitioning no elements flop from one site/pile to the other
+#. you can sort elements to the right and left of the pivot independently
+
+
+Randomization is a good tool to improve algorithms with bad worst-case bug good avarage-cost complexity.
+
+random sampling
+    can get the median value of n things without looking at them all by picking a random sub-set
+
+randomized hashing
+    randomizing the hash function so that data doesn't end up grouped on the same keys
+
+randomized search
+    randomizing can be used in search techniques lik simulated annealing
+
+
+Distribution Sort
+=================
+
+distribution sort is a form of bucketing
+
+* read through the list and group items into buckets of known sort order
+    - i.e. to sort names into a phone book look at the last name and group by starting letter
+    - we now know group O comes before group P etc...
+* move through each group further segmenting the list by second letter
+* it is a good method when we know there is a relatively even distribution
+* downside is performance is terrible on unexpected data sets
+* there is no guarenteed worst-case behavior unlike balanced binary trees
+    - heuristic data structures provide no promises on unexpected input distributions
+
+
+======
+Search
+======
+
+Depth-first Search
+
+Breadth-first Search
 
 
 ============
