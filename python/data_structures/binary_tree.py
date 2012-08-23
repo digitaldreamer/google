@@ -187,13 +187,10 @@ class BinaryTree(object):
 
     def traverse(self, method='inorder'):
         if method == 'inorder':
-            print 'inorder'
             self.traverse_inorder(self.root)
         elif method == 'postorder':
-            print 'postorder'
             self.traverse_postorder(self.root)
         elif method == 'preorder':
-            print 'preorder'
             self.traverse_preorder(self.root)
 
     def traverse_inorder(self, root):
@@ -201,14 +198,14 @@ class BinaryTree(object):
             return
 
         self.traverse_inorder(root.left)
-        print root.data
+        self._process_node(root)
         self.traverse_inorder(root.right)
 
     def traverse_preorder(self, root):
         if not root:
             return
 
-        print root.data
+        self._process_node(root)
         self.traverse_preorder(root.left)
         self.traverse_preorder(root.right)
 
@@ -218,7 +215,10 @@ class BinaryTree(object):
 
         self.traverse_postorder(root.left)
         self.traverse_postorder(root.right)
-        print root.data
+        self._process_node(root)
+
+    def _process_node(self, node):
+        print node.data
 
 
 class Node(object):
@@ -273,6 +273,12 @@ if __name__ == '__main__':
     print 'Max: %s' % tree.max().data
 
     tree.delete(40)
+
+    print 'postorder'
     tree.traverse('inorder')
+
+    print 'preorder'
     tree.traverse('preorder')
+
+    print 'postorder'
     tree.traverse('postorder')
