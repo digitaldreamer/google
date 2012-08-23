@@ -8,8 +8,6 @@ def insertion_sort(element):
     """
     length = len(element)
 
-    print element
-
     # loop through each element
     for i in range(length):
         j = i
@@ -18,8 +16,6 @@ def insertion_sort(element):
             # swap
             element[j], element[j-1] = element[j-1], element[j]
             j -= 1
-
-        print element
 
     return element
 

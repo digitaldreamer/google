@@ -8,8 +8,6 @@ def selection_sort(element):
     """
     length = len(element)
 
-    print element
-
     # loop through each element
     for i in range(length):
         placement = i
@@ -23,8 +21,6 @@ def selection_sort(element):
 
         # swap the pair
         element[i], element[placement] = element[placement], element[i]
-
-        print element
 
     return element
 

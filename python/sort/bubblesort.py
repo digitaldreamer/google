@@ -10,8 +10,6 @@ def bubble_sort(element):
     length = len(element)
     swapped = True
 
-    print element
-
     # loop through each element
     while swapped:
         swapped = False
@@ -20,8 +18,6 @@ def bubble_sort(element):
             if element[i] > element[i+1]:
                 element[i], element[i+1] = element[i+1], element[i]
                 swapped = True
-
-        print element
 
     return element
 
