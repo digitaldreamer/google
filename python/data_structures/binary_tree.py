@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 class BinaryTree(object):
     """
-    basic implamentation of a Binary Search Tree
+    basic implementation of a Binary Search Tree
 
     each node has maximum of 2 children
-    for this implamentation each node is unique (doesn't always have to be that way)
+    for this implementation each node is unique (doesn't always have to be that way)
     use recursion
 
     depends entirely on insert order to be balenced

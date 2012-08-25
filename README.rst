@@ -2,11 +2,13 @@
 GOOGLE
 ######
 
+
 =============================
 Coding: C++,  Java or Python.
 =============================
 
 You will be expected to write some code in at least some of your interviews. You will be expected to know a fair amount of detail about your favorite programming language. 
+
 
 ==============================================================
 Big-O notations: "the run time characteristic of an algorithm"
@@ -399,11 +401,110 @@ trie-trees
 Graphs:
 =======
 
-Graphs are really important at Google.
+| Graphs are one of the unifying themes of Computer Science, and are really important at Google. 
+| So many models can be abstracted into a graph: transportation systems, networks, circuits, interactions, relationships etc . . .
+| Key to solving problems is to correctly model the data to take advantage of existing algorithms.
 
-There are 3 basic ways to represent a graph in memory (objects and pointers, matrix, and adjacency list); familiarize yourself with each representation and its pros & cons.
+::
 
-You should know the basic graph traversal algorithms: breadth-first search and depth-first search. Know their computational complexity, their tradeoffs, and how to implement them in real code.
+    G = (V, E): a (G) Graph is set of (V) Vertices together with a set of (E) Edges or vertex pairs.
+    'n' number of vertices and 'm' edges
+
+
+Flavors
+=======
+
+* undirected vs directed
+    - it's undirected if edge (x, y) also implies (y, x) also exists: otherwise it's directed (can only travel one way along an edge)
+    - most graphs are undirected
+* weighted vs unweighted
+    - A weighted graph assignes either eatch edge or vertex a weight
+    - an unwighted graph has no cost distinction between edges and vertices
+    - shortest paths can be found with breadth-first search on unweighted graphs, weighted graphs need more sophisticated algorithms
+* simple vs non-simple
+    - some edge types complicate graph structures
+        + self-loop: an edge with one vertex (x, x)
+        + multiedge: if edge (x, y) occurs more than once in the graph
+    - any graph that avoids self-loop and multiedge are simple, otherwise the graph is non-simple
+* sparse vs dense
+    - a graph is sparse when only a small fraction of possible vertex pairs actually have edges
+    - a graph is dense when a large fraction of possible vertex pairs have edges
+    - there is no boundry between the distinctions, but typically a sparse graph has a linear amount of edges
+      where a dense graph has a quadratic amount of edges
+    - graphs are typically sparse
+* cyclic vs acyclic
+    - an acyclic graph does not contain any cycles
+        + trees are connected, acyclic undirected graphs
+    - directed acyclic graphs are call DAGs
+        + arrise naturally in scheduling where directed edge (x, y) where activity x must occure before y
+        + topological sorting orders the vertices of a DAG
+* embeded vs topological
+    - embedded graphs have their vertices and edges assigned geometric positions
+        + any drawing of a graph is an embedding
+    - sometimes graphs are defined by the geometry of its embedding
+    - the underlying topology is the complete graph connected each pair of vertices: the weights are typically the distance between two pair of points
+* implicit vs explicit
+    - some graphs are not explicitly constructed and then traversed, but built as we use them making them implicit
+    - can represent states or information about where you are in a search/sort
+* labeled vs unlabeled
+    - labeled graphs has each vertices assigned a name or identifier
+    - unlabled graphs have no such distinctions
+
+the degree of a vertex is the number of edges adjacent to it: sparce graphs have low degree and dense graphs have high degree
+
+
+Friendship Graph
+----------------
+
+represents friends connections in a social network
+
+* sparse: I have a small-subset of friends compared to the rest of the world
+* undirected: we're both each other's friends
+* unweighted: no friendship strength association (0 - enimies, 10 - blood brother)
+* simple: I'm not my own friend
+* the most popular person has the highest "degree"
+* embedded: friends have locations attatched to them
+* implicit: I know who my friends are (explicit), but calculations of friends of my friends are deferred.
+* unlabeled: my friends have names, but generally that has no effect on analyzing the graph. Typically friends and connections are just points to be processed.
+
+
+Graph Data Structures
+=====================
+
+* the data structure of a graph can have an enormous effect on performance
+
+
+Adjacency Matrix
+----------------
+
+G is represented using an n x n matrix (M) where M[i,j] = 1 if (i, j) is an edge and 0 if it isn't.
+
+* fast answer to "is (i, j) in G?"
+* rapid updates for edge insertion and deletion
+* uses excessive space for graphs with many vertices and relatively few edges (matrix is mostly empty)
+
+
+Adjacency Lists
+---------------
+
+* adjacency lists are the right data structure for most applications of graphs
+* sparse graphs can be best represented using linked lists to store the neighbors adjacent to each vertex (requires pointers)
+* harder to verify if edge (i, j) is in G
+    - key is to design algorithms that don't need that information
+
+===================================== ======================
+Comparison                            Winner
+===================================== ======================
+faster to test (x, y) is in graph     matrix
+faster to find the degree of a vertex lists
+less memory on small graphs           lists (m + n) vs (n^2)
+less memory on large graphs           matrices
+edge insertion or deletion            matrices O(1) vs O(d)
+faster to traverse                    lists (m + n) vs (n^2)
+better for most problems              lists
+===================================== ======================
+
+basic graph traversal algorithms: breadth-first search and depth-first search. Know their computational complexity, their tradeoffs, and how to implement them in real code.
 
 If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*.
 
