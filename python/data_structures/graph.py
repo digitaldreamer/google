@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import Queue
+
+
 class Graph(object):
     """
     There are many different representations of Graphs, this is based on Guido's graph
@@ -65,8 +68,9 @@ class Graph(object):
     graph = {}
     directed = False
 
-    def __init__(self, directed=False):
+    def __init__(self, graph={}, directed=False, *args, **kwargs):
         self.directed = directed
+        self.graph = graph
 
     def show(self):
         for node, edges in self.graph.items():

@@ -504,9 +504,102 @@ faster to traverse                    lists (m + n) vs (n^2)
 better for most problems              lists
 ===================================== ======================
 
-basic graph traversal algorithms: breadth-first search and depth-first search. Know their computational complexity, their tradeoffs, and how to implement them in real code.
 
-If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*.
+Traversal
+=========
+
+visiting every edge and vertex: traveral is a fundamental graph problem.
+
+* graphs are like mazes: need to know how to get out
+* efficiency
+    - make sure we don't repeatedly go back to the same place
+    - get out as fast as possible
+* correctness
+    - guarentee that we get out
+* the key is to mark each vertex when visited and keep track of the unexplored
+    - undiscovered: the initialized vertex
+    - discovered: the vertex when it has been found, but have yet to check all incident edges
+    - processed: the vertex after we have visited all of its incident edges
+
+#. start with one discovered vertex
+#. evaluate each edge leaving from vertex
+#. if edge leads to an undiscovered vertex mark it as visited
+   and add it to the list of work to do
+#. igore edges that go to a discovered or processed vertex
+#. consider each undirected edge twice, and directed edges once
+
+
+
+breadth-first search
+--------------------
+
+http://en.wikipedia.org/wiki/Breadth-first_search
+
+| BFS is an uninformed search method that aims to expand and examine all nodes of a
+| graph or combination of sequences by systematically searching through every solution.
+| In other words, it exhaustively searches the entire graph or sequence without considering the goal until it finds it.
+|
+| From the standpoint of the algorithm, all child nodes obtained by expanding a node are added to a FIFO
+| (i.e., First In, First Out) queue. In typical implementations, nodes that have not yet been examined for
+| their neighbors are placed in some container (such as a queue or linked list) called "open" and then once
+| examined are placed in the container "closed".
+
+
+Implementation
+^^^^^^^^^^^^^^
+
+* a way to discover every point
+* start with the root node
+* inspect all neighboring nodes
+* for all neighboring nodes in turn inspect their neighboring nodes which are unvisited 
+* you process nodes in the order that they are discovered
+    * nodes closest to the root node are processed first
+    * this property is useful in shortest path problems
+
+#. Enqueue the root node
+#. Dequeue a node and examine it
+#. If the element sought is found in this node, quit the search and return a result
+   (or just process the node depending on what you need to do).
+#. Otherwise enqueue any successors (the direct child nodes) that have not yet been discovered.
+#. If the queue is empty, every node on the graph has been examined – quit the search and return "not found".
+#. If the queue is not empty, repeat from Step 2.
+
+::
+    # Graph G and a root v of G
+
+    procedure BFS(G,v):
+        create a queue Q
+        enqueue v onto Q
+        mark v
+
+        while Q is not empty:
+            t ← Q.dequeue()
+
+            if t is what we are looking for:
+                # process vertex
+                return t
+
+            for all edges e in G.incidentEdges(t) do
+                # process edge
+                o ← G.opposite(t, e)
+
+                if o is not marked:
+                    mark o
+                    enqueue o onto Q
+
+* use a data structure to maintain our knowledge about each vertex (discovered/processed)
+* a vertex is discovered when we visit it the first time
+* a vertex is processed when all outgoing edges from it
+
+
+depth-first search
+------------------
+
+Dijkstra
+--------
+
+A* 
+---
 
 
 =====================
