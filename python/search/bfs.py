@@ -5,8 +5,8 @@ import Queue
 
 # add parent directory to path
 path = os.path.dirname(os.path.abspath(__file__))
-parent_path = os.sep.join(path.split(os.sep)[:-1])
-sys.path.append(parent_path)
+project_path = os.sep.join(path.split(os.sep)[:-1])
+sys.path.append(project_path)
 
 from data_structures.graph import Graph
 
@@ -17,38 +17,73 @@ class BFSGraph(Graph):
     """
     discovered = None
     queue = None
-    paths = None
     edge_number = 0
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, mode='bfs', *args, **kwargs):
         super(BFSGraph, self).__init__(*args, **kwargs)
+        self.reset()
+
+    def reset(self):
         self.discovered = []
-        self.paths = []
+        self.edge_number = 0
         self.queue = Queue.Queue()
 
-    def show(self):
+    def show(self, start):
         """
         print some BFS processing goodies
         """
+        self.reset()
+
         super(BFSGraph, self).show()
-        self.traverse('A')
+        self.traverse(start)
         print 'Edge Number: %s' % self.edge_number
+
+    def find_path(self, start, finish):
+        """
+        finds the shortest path between start and finish
+        """
+        def _find_path(x, path):
+            for y in self.graph.get(x, []):
+                if y not in self.discovered:
+                    self.discovered.append(y)
+                    new_path = list(path) + [y]
+                    self.queue.put(new_path)
+
+        self.reset()
+
+        # push first node into queue
+        if not self.graph.has_key(start):
+            return None
+
+        self.discovered.append(start)
+        self.queue.put([start])
+
+        while not self.queue.empty():
+            path = self.queue.get()
+            node = path[-1]
+
+            if node == finish:
+                return path
+
+            _find_path(node, path)
+
+        # no path was found
+        return None
 
     def traverse(self, start):
         """
-        traverses the graph using Breadth First Search
+        traverses the graph using BFS depending on Queue type
 
         NOTE: doesn't really search
         """
         def _traverse(x):
             self._preprocess_vertex(x)
 
-            if self.graph.has_key(x):
-                for y in self.graph[x]:
-                    if y not in self.discovered:
-                        self.discovered.append(y)
-                        self._process_edge(x, y)
-                        self.queue.put(y)
+            for y in self.graph.get(x, []):
+                if y not in self.discovered:
+                    self.discovered.append(y)
+                    self._process_edge(x, y)
+                    self.queue.put(y)
 
             self._postprocess_vertex(x)
 
@@ -74,19 +109,18 @@ class BFSGraph(Graph):
 
 
 if __name__ == '__main__':
-    """
-    {
-        'A': ['B', 'E'], 
-        'B': ['C', 'D'], 
-        'C': ['H'],
-        'E': ['F', 'G'],
+    initial_graph = {
+        'A': ['B', 'C'], 
+        'B': ['D', 'E'], 
+        'C': ['F', 'G'],
+        'E': ['H'],
     }
-    """
-    graph = BFSGraph({
-        'A': ['B', 'E'], 
-        'B': ['C', 'D'], 
-        'C': ['H'],
-        'E': ['F', 'G'],
-    })
 
-    graph.show()
+    graph = BFSGraph()
+
+    for node, edges in initial_graph.items():
+        for edge in edges:
+            graph.insert_edge(node, edge)
+
+    graph.show('A')
+    print 'Find Path (H, F): ', graph.find_path('H', 'F')

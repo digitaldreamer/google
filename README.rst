@@ -450,7 +450,9 @@ Flavors
     - labeled graphs has each vertices assigned a name or identifier
     - unlabled graphs have no such distinctions
 
-the degree of a vertex is the number of edges adjacent to it: sparce graphs have low degree and dense graphs have high degree
+| the degree of a vertex is the number of edges adjacent to it: sparce graphs have low degree and dense graphs have high degree
+| a graph is connected if there is a path between any two vertices
+|     a connected component of an undirected graph is the set of vertices that there is a path between every pair
 
 
 Friendship Graph
@@ -528,9 +530,20 @@ visiting every edge and vertex: traveral is a fundamental graph problem.
 #. igore edges that go to a discovered or processed vertex
 #. consider each undirected edge twice, and directed edges once
 
+| There are two primary ways to traverse a graph: Breadth-First Search and Depth-First Search;
+| the difference is in the order in which the vertices are explored. This order depends on
+| the container data structure used to store the discovered (not processed) vertices.
+
+Queue (BFS)
+    By using FIFO we explore the oldest vertices first, eploration radiates slowly out
+    from the starting vertex.
+
+Stack (DFS)
+    By using LIFO we explore the vertices along a path quickly wandering away from the
+    starting vertex.
 
 
-breadth-first search
+Breadth-First Search
 --------------------
 
 http://en.wikipedia.org/wiki/Breadth-first_search
@@ -592,11 +605,166 @@ Implementation
 * a vertex is processed when all outgoing edges from it
 
 
-depth-first search
+Path Finding
+^^^^^^^^^^^^
+
+BFS is very useful in finding paths
+
+* the vertex that discovered vertex i is the parent[i]
+* every vertex is discovered in the traversal, so every vertex except the root has a parent
+* vertexes are discovered in order of increasing distance from the root resulting in a shortest path tree
+* the shortest path tree is only useful if it was performed with x as the root
+* BFS gives the shortest path only if the graph is unweighted
+
+
+Graph Coloring
+^^^^^^^^^^^^^^
+
+Attempts to color each vertex so that no edge links two vertexes of the same color using the least amount of colors
+
+* a bipartite graph can be colored using two colors
+
+
+Depth-First Search
 ------------------
+
+http://en.wikipedia.org/wiki/Depth-first_search 
+
+| Depth-first search (DFS) is an algorithm for traversing or searching a tree, tree structure, or graph.
+| One starts at the root (selecting some node as the root in the graph case) and explores as far as possible
+| along each branch before backtracking.
+|
+| Formally, DFS is an uninformed search that progresses by expanding the first child node of the search tree
+| that appears and thus going deeper and deeper until a goal node is found, or until it hits a node that has no children.
+| Then the search backtracks, returning to the most recent node it hasn't finished exploring. In a non-recursive
+| implementation, all freshly expanded nodes are added to a stack for exploration.
+
+::
+
+    Input: A graph G and a vertex v of G
+    Output: A labeling of the edges in the connected component of v as discovery edges and back edges
+
+    procedure DFS(G,v):
+        label v as explored
+
+        for all edges e in G.incidentEdges(v) do
+            if edge e is unexplored then
+                w ← G.opposite(v,e)
+
+                if vertex w is unexplored then
+                    label e as a discovery edge
+                    recursively call DFS(G,w)
+                else 
+                  label e as a back edge
+
+* DFS is conceptually just BFS using a stack insead of a queue, but recursion can eliminate the need for a stack for DFS
+* DFS can track the traversal time for each vertex (every time you enter or exit a vertex increase the time counter):
+  entry and exit times, which can track interesting properties
+    - who is an anccestor? the time interval of y must be properly nested with x
+    - how many descendants? the difference between entry and exit times divided by two for vertex v tells how many descendants v has
+* DFS builds only two edge types
+    - tree edges: discover new vertices
+    - back edges: link to an ancestor and point back into the tree
+
+
+Finding Edges
+^^^^^^^^^^^^^
+
+* back edges are the key to finding cycles in an undirected graph
+* if there are no back edges then all edges are tree edges and no cycles exist
+* any back edge going from x to an ancestor y creates a cycle from y to x
+
+
+Articulation Vertices
+^^^^^^^^^^^^^^^^^^^^^
+
+Also called a cut-node, an Articulation Vertex is an isolated node that connects a connected component.
+
+Any graph that has an articulation vertex is fragile because the loss of one node disconnects the graph.
+
+The connectivity of a graph is the smallest number of vertices whose deletion will dissconnect the graph.
+It is one if there is an articulation vertex.
+
+More robust graphs without an articulation vertex are biconnected.
+
+General graphs are more complex than trees. A DFS of a graph partitions the edges into tree edges and back edges.
+Think of back edges as security cables linking a vertex back to its ancestors; the back-edge prevents any of the
+vertices in between x and y to be articulation vertices.
+
+Finding articulation vertices requires maintaining the extent to which back edges link chunks of the DFS tree back to ancestor nodes.
+The relative age/rank of our ancestors can be determined from their entry times.
+
+The key issue is determining how the reachability relation impacts whether vertex v is an articulation vertex. There are three cases:
+
+* root cut nodes: If the root of the DFS tree has two or more children, it must be an articulation vertex.
+* bridge cut nodes: If the earliest reachable vertex from v is v (there's no bridge), then deleting the single edge (parent[v], v) disconnects the graph.
+  parent[v] is an articulation vertex, and so is v unless it is a leaf
+* parent cut nodes: If the earliest reachable vertex from v is the parent of v, then the parent must server v from the tree unless if
+  the parent is the root.
+
+A single edge whose deletin disconnects the graph is a bridge; any graph without such an edge is edge-biconnected.
+
+* edge (x, y) is a bridge if 1) it is a tree edge and 2) no back edge connects from y or below to x or above.
+
+
+DFS on Directed Graphs
+^^^^^^^^^^^^^^^^^^^^^^
+
+When traversing undirected graphs every edge is either in the DFS tree or a back edge to an ancestor.
+
+4 Types of edges
+
+* tree edge - links to a child
+* forward edge - links to a grandchild
+* back edge - links to a grandparent
+* cross edge - links to a sibling
+
+::
+    int edge_classification(int x, int y) {
+        if (parent[y] == x) return (TREE);
+        if (discovered[y] && !processed[y]) return (BACK);
+        if (processed[y] && (entry_time[y] > entry_time[x])) return (FORWARD);
+        if (processed[y] && (entry_time[y] < entry_time[x])) return (CROSS);
+
+        printf('Warning: unclassified edge (%d, %d)\n', x, y);
+    }
+
+
+    DFS-graph(G)
+        for each vertex u in V[G] do
+            state[u] = 'undiscovered'
+
+            for each vertex u in v[G] do
+                if state[u] = 'undiscovered' then
+                    initialize new component, if desired
+                    DFS(G, u)
+
+
+Topological Sort
+^^^^^^^^^^^^^^^^
+
+| Topological sorting is the most important oporation on directed acyclic graphs (DAGs)
+| It orders the vertices on a line such that all directed edges go from left to right.
+| DAGs can't contain cycles.
+|
+| Every DAG has at least one topological sort: it tells us an ordering to process each vertex before its sucessors.
+|
+| Labeling the vertices in the reverse order (can use stack) that they are marked processed finds a topological sort.
+
+
+Strongly Connected Components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Strongly connected components are chunks of a graph where directed paths exist between all pairs of vertices within a given chunk.
+
+A directed graph is strongly connected if there is a directed path between any two vertices.
+
+Road networks should be strongly connected.
+
 
 Dijkstra
 --------
+
 
 A* 
 ---

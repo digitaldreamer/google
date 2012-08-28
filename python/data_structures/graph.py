@@ -79,7 +79,7 @@ class Graph(object):
     def insert_edge(self, x, y):
         self._insert_edge(x, y)
 
-        if self.directed:
+        if not self.directed:
             self._insert_edge(y, x)
 
     def _insert_edge(self, x, y):
@@ -88,7 +88,9 @@ class Graph(object):
         except KeyError:
             self.graph[x] = [y]
         else:
-            node.append(y)
+            # insert edge if id doesn't exist
+            if not y in self.graph[x]:
+                node.append(y)
 
 if __name__ == '__main__':
     graph = Graph()
