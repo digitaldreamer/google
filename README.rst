@@ -762,6 +762,92 @@ A directed graph is strongly connected if there is a directed path between any t
 Road networks should be strongly connected.
 
 
+Weighted Graphs
+===============
+
+Graphs that have a weight assigned to an edge need more advanced algorithms.
+
+
+Minimum Spanning Trees
+----------------------
+
+| A spanning tree to graph G = (V, E) is a subset of edges from E forming a tree connecting all vertices of V.
+| The minimum spanning tree is whose sum of edge weights is as small as possible.
+|
+| Any tree is the smallest possible connected graph in terms of edges.
+| The minimum spanning tree is the smallest connected graph in terms of edge weight.
+|
+| A minimum spanning tree minimizes the total length over all possible spanning trees.
+| There can be more than one minimum spanning tree in a graph.
+
+
+Prim's Algorithm
+----------------
+
+Start from one vertex and grow the rest of the tree one edge at a time picking the smallest
+available choice until all vertices are included.
+
+It's a primitive GREEDY algorithm that repeatedly selects the smallest weight edge to build a minimum spanning tree.
+
+Pretty slow: O(n^2) unoptimized, or O(m + n lg(n)) optimized
+
+::
+
+    Prim-MST(G)
+        select arbitrary vertex s to start the tree from
+
+        while (there are still nontree vertices)
+            select the edge of minimum eight between a tree and nontree vertex
+            add the selected edge and vertex to the tree
+
+
+Kruskal's Algorithm
+-------------------
+
+Another GREEDY algorithm to build Minimum Spanning Trees that works more efficiently on sparse graphs than Prim's
+
+It doesn't start with a vertex; instead it builds up connected components.
+
+* each vertex starts out as a separate component
+* repeatedly consider the smallest remaing edge and test whether the two endpoints lie within a single component
+* if the endpoints are in different components insert the edge and merge the components together
+* edge weight ties are broken arbitrarily
+* since each component is a tree we don't test for cycles
+
+| runs in O(mn) time using a general O(n lg n) sort,
+| but can run in O(n lg n) using a union-find that runs in O(lg n)
+
+::
+
+    Kruskal-MST(G)
+        put the edges in a priority queue ordered by weight
+        count = 0
+
+        while (count < n -1)
+            get next edge (v, w)
+
+            if (component(v) != component(w))
+                add to Tree
+                merge component(v) and component(w)
+
+
+Union-Find Data Structure
+-------------------------
+
+http://en.wikipedia.org/wiki/Disjoint-set_data_structure
+
+| A set partition is a partitioning of the elements into a collection of disjointed subsets.
+| Each element is in one subset. Connected components of a graph can be represented as a set partition.
+
+We need these functions:
+
+* Find: Determine which subset a particular element is in. This can be used for determining if two elements are in the same subset.
+* Union: Join two subsets into a single subset.
+* MakeSet: makes a set containing only a given element
+
+Always attach the smaller tree to the larger
+
+
 Dijkstra
 --------
 
