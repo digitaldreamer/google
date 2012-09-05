@@ -782,7 +782,7 @@ Minimum Spanning Trees
 
 
 Prim's Algorithm
-----------------
+^^^^^^^^^^^^^^^^
 
 Start from one vertex and grow the rest of the tree one edge at a time picking the smallest
 available choice until all vertices are included.
@@ -802,7 +802,7 @@ Pretty slow: O(n^2) unoptimized, or O(m + n lg(n)) optimized
 
 
 Kruskal's Algorithm
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 Another GREEDY algorithm to build Minimum Spanning Trees that works more efficiently on sparse graphs than Prim's
 
@@ -848,19 +848,66 @@ We need these functions:
 Always attach the smaller tree to the larger
 
 
-Dijkstra
---------
+The Shortest Path (TSP)
+-----------------------
+
+| A path is a sequence of edges connecting two vertices
+
+The shortest path of an unweighted graph can be found using Breadth First Search
+
+Determining shortest paths on weighted graphs requires more sophisticated algorithms
+
+
+Dijkstra's Algorithm
+^^^^^^^^^^^^^^^^^^^^
+
+Given a starting vertex (s) it finds the shortest path to every other vertex in the graph including the target (t).
+
+Performed in a series of rounds where each round finds a new shortest path to another vertex
+
+Runs in O(n^2)
+
+::
+
+    Dijkstra-TSP(G, s, t)
+        known = {s}
+
+        for i = 1 to n, dist[i] = infinity
+        for each edge (s, v), dist[v] = w(s, v)
+        last = s
+
+        while (last != t)
+            select v-next, the unknown vertex minimizing dist[v]
+
+            for each edge (v-next, x), dist[x] = min[dist[x], dist[v-next] + w(v-next, x)]
+            last = v-next
+            known = known U {v-next}
+
+| The basic idea is similar to Prim's algorithm: for each iteration we add exactly one vertex to the shortest path tree.
+| Like Prim's we keep track of the best paths seen for all visible vertices outside the tree and insert them in order of increasing cost.
+
+| The difference between Prim and Dijkstra is how they rate the desirability of each outside vertex.
+| Prim only cares about edge weight, Dijkstra cares about the distance of the outside vertex to s.
+
+| Dijkstra only works on positive cost weights.
+
+
+All Pairs Shortest Path
+^^^^^^^^^^^^^^^^^^^^^^^
 
 
 A* 
----
+^^^^
 
 
 =====================
 Other Data Structures
 =====================
 
-You should study up on as many other data structures and algorithms as possible. You should especially know about the most famous classes of NP-complete problems, such as traveling salesman and the knapsack problem, and be able to recognize them when an interviewer asks you them in disguise. Find out what NP-complete means.
+| You should study up on as many other data structures and algorithms as possible.
+| You should especially know about the most famous classes of NP-complete problems,
+| such as traveling salesman and the knapsack problem,
+| and be able to recognize them when an interviewer asks you them in disguise.
 
 
 ==========================
